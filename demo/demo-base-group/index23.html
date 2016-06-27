@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+ng-init    ng-init="name='xugang'"
+ng-include  引入html资源
+ng-model
+  ng-model-options 设置数据同步触发方式   ng-model-options="{updateOn:'blur'}"
+
+ng-controller
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+
+app.controller("con", ["$scope", function($scope) {
+  //$scope.name = "xugang";
+  $scope.array = [['a','b'],['c','d']];
+
+}]);
+</script>
+
+<body>
+  <div ng-controller="con" ng-init="name='xugang'">
+    <p ng-bind="name"></p>
+
+
+    <div ng-repeat="outer in array" ng-init="outerIndex = $index">
+        <div ng-repeat= "inner in outer" ng-init="innerIndex = $index">
+          {{inner}}:{{outerIndex}}{{innerIndex}}
+        </div>
+    </div>
+
+    <div ng-include="'temp.html'"></div>
+
+    <!-- 在失去焦点时，数据同步 -->
+    <input type="text" ng-model="mm" ng-model-options="{updateOn:'blur'}"/>
+    <P>{{mm}}</P>
+
+  </div>
+</body>
+<script type="text/javascript">
+//alert(1);
+</script>
+
+</html>

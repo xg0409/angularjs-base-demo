@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!-- 基本过滤器 -->
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+app.controller("con", ["$scope", function($scope) {
+  $scope.data = "454545.934";
+  $scope.name = "xugang";
+  $scope.jsonData = {
+    "name": "xugang",
+    "age": 12
+  };
+  $scope.date = new Date();
+  $scope.array = [{
+    "name": "xugang6",
+    "age": 42
+  }, {
+    "name": "xugang2",
+    "age": 72
+  }, {
+    "name": "xugang9",
+    "age": 22
+  }];
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <p>{{data}}</p>
+    <p>{{data | currency}}</p>
+    <p>{{data | currency : '¥'}}</p>
+    <p>{{data | number}}</p>
+    <p>{{data | number : 2}}</p>
+    <p>{{name | lowercase}}</p>
+    <p>{{name | uppercase}}</p>
+    <pre>{{jsonData}}</pre>
+    <pre>{{jsonData | json}}</pre>
+    <p>{{name | limitTo:2}}</p>
+    <p>{{date}}</p>
+    <p>{{date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+    <p>{{array | orderBy:'age'}}</p>
+    <p>{{array | orderBy:'name'}}</p>
+    <p>{{array | orderBy:'name':true}}</p>
+    <p>{{array | filter:'42'}}</p>
+    <p>{{array | filter:'xugang2'}}</p>
+    <p>{{array | filter:'xu':true}}</p>
+    <p>{{array | filter:'xu'}}</p>
+    <p>{{array | filter:'xugang9':true}}</p>
+  </div>
+</body>
+
+</html>

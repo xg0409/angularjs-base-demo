@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<!--
+表单验证
+novalidate form属性去除html5默认验证
+$valid     表单验证成功返回true
+$invalid   表单验证成功返回false
+$pristine  文本框原始值未被修改返回true
+$dirty     文本框值被修改返回true
+$error     验证失败，验证信息
+查找方式    通过name属性
+
+
+ng-minlength
+ng-pattern
+
+验证css样式
+.ng-valid     通过
+.ng-invalid   未通过
+.ng-pristine  是否初始值
+.ng-dirty     是否被修改
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>表单验证</title>
+</head>
+<style type="text/css">
+.ng-invalid {
+  border-color: red;
+}
+
+.ng-valid {
+  border-color: #ccc;
+}
+</style>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+
+app.controller("con", ["$scope", function($scope) {
+  //$scope.name = "xugang";
+  $scope.regText = {
+    regVal: 'default',
+    regTips: [{
+      name: "default",
+      tip: "请输入用户名"
+    }, {
+      name: "required",
+      tip: "用户名不能为空"
+    }, {
+      name: "pattern",
+      tip: "用户名必须时字母"
+    }, {
+      name: "pass",
+      tip: "验证通过"
+    }]
+  }
+
+
+  $scope.regPassword = {
+    regVal: 'default',
+    regTips: [{
+      name: 'defaults',
+      tip: '请输入密码'
+    }, {
+      name: 'required',
+      tip: '密码不能为空'
+    }, {
+      name: 'pattern',
+      tip: '密码必须为6位数字'
+    }, {
+      name: 'pass',
+      tips: '验证通过'
+    }]
+  }
+
+  $scope.validate = function(regObj, $error) {
+    for (var attr in $error) {
+      if ($error[attr]) {
+        $scope[regObj].regVal = attr;
+        return;
+      }
+    }
+    $scope[regObj].regVal = "pass";
+  }
+
+
+
+
+
+
+}]);
+</script>
+
+<body>
+  <div ng-app="myApp">
+    <div ng-controller="con">
+      <form novalidate name="myForm">
+        <div>
+          用户名：
+          <input type="text" name="name" ng-model="name" required ng-pattern="/^[a-zA-Z]{1,}$/" ng-keyup="validate('regText',myForm.name.$error)" />
+          <span ng-repeat="re in regText.regTips | filter : regText.regVal">{{re.tip}}</span>
+        </div>
+        <br/>
+        <div>
+          密码：
+          <input type="text" name="password" ng-model="password" required ng-pattern="/^[0-9]{6}$/" ng-keyup="validate('regPassword',myForm.password.$error)" />
+          <span ng-repeat="re in regPassword.regTips | filter : regPassword.regVal">{{re.tip}}</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

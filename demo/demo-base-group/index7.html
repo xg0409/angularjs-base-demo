@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- $scope.$apply() 监听其内部anguler数据是否有变化，及时反映到页面上 -->
+angular.module('myApp', []).controller('Bbb', function($scope, $timeout) {
+  $scope.name = "hahhahahha";
+
+  setTimeout(function() {
+    //$scope.name = "hi" 改操作无法及时反映到页面
+    $scope.$apply(function(){
+      $scope.name = "hi2"
+    });
+  }, 2000);
+
+  // $timeout(function() {
+  //   $scope.name = "hi"
+  // }, 2000);
+});
+</script>
+
+<body>
+  <div ng-app="myApp" ng-controller="Bbb">
+    <p>{{name}}</p>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- ng-model 指令把元素值（比如输入域的值）绑定到应用程序  -->
+var app = angular.module('myApp', []);
+app.controller('Aaa', function($scope, $timeout) {
+  $scope.name = "hahhahahha";
+});
+
+
+app.controller('Bbb', function($scope, $timeout) {
+  $scope.name = "hahhahahha";
+});
+</script>
+
+<body>
+
+  <div ng-controller="Aaa">
+    <input type="text" ng-model="name"/>
+    <p>{{name}}</p>
+  </div>
+
+  <div ng-controller="Bbb">
+    <input type="text" ng-model="name"/>
+    <p>{{name}}</p>
+  </div>
+</body>
+
+</html>

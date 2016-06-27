@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+自定义指令
+  templateurl : 引入模板文件
+  1. 默认共享作用域
+  scope:true 设置独立作用域
+  scope={}  隔离作用域
+  绑定策略
+  @: 字符串匹配
+  ＝：匹配angular $scope下的数据
+  &：绑定函数
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>自定义指令</title>
+</head>
+<style type="text/css">
+.tab {
+  display: none;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+}
+
+.active {
+  display: block;
+}
+</style>
+<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+<script src="js/angular.min.js"></script>
+
+<script>
+$(function() {
+  $(".containter").on('click','.tab-trigger input',function() {
+    $(this).parent().next().find($(this).attr("tab")).addClass("active");
+    $(this).parent().next().find($(this).attr("tab")).siblings("div").removeClass("active");
+  });
+});
+var app = angular.module("myApp", []);
+
+app.directive('tab', function() {
+  return {
+    restrict: 'E',
+    //scope:true,
+    replace : true,
+    scope:{
+    	tabId:'@tabId',
+    	tabData:'=tabData'
+    },
+    controller:["$scope",function($scope){
+    	$scope.name="隔离作用域";
+    }],
+    templateUrl: 'index31_temp.html'
+  }
+});
+
+app.controller("con", ["$scope", function($scope) {
+	$scope.tabName = "hi";
+	$scope.show = function(num,num2){
+		alert(num+""+num2);
+	};
+	$scope.data = [
+	  {title:'语文',content:'语文的内容'},
+	  {title:'数学',content:'数学的内容'},
+	  {title:'英语',content:'英语的内容'}];
+}]);
+</script>
+
+<body>
+  <div class="containter" ng-controller="con">
+    <tab tab-id="tab-div1" tab-data="data"></tab>
+    <tab tab-id="tab-div2" tab-data="data"></tab>
+  </div>
+</body>
+
+</html>

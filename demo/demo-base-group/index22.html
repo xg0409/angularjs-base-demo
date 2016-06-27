@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+ng-show  DOM隐藏／显示
+ng-hide  DOM隐藏／显示
+ng-if    DOM添加／删除
+ng-switch
+  on
+  ng-switch-default
+  ng-switch-when
+
+ng-open
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<style type="text/css">
+
+  .yellow{
+    color:yellow;
+  }
+  .red{
+    color: red;
+  }
+
+</style>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- 引入ngSanitize模块 -->
+var app = angular.module("myApp", []);
+
+
+app.controller("con", ["$scope", function($scope) {
+  $scope.name="xugang";
+  $scope.ck = true;
+  $scope.style= "{background:'yellow'}";
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <input type="checkbox" ng-model="ck"/>
+    <p ng-show="ck" ng-bind="name"></p>
+
+
+    <div ng-switch on="ck">
+      <p ng-switch-default>默认显示</p>
+      <p ng-switch-when="false">切换隐藏</p>
+    </div>
+
+  </div>
+</body>
+<script type="text/javascript">
+  //alert(1);
+</script>
+</html>

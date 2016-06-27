@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+ng-bind 避免dom未加载完成出现 {{value}} 在界面上
+ng-bind-template 一个指令输出多次结果
+ng-bind-html 需要引入angular-sanitize插件
+ng-cloak 与{{}} 结合使用，避免dom未加载完成出现 {{value}} 在界面上
+ng-non-bindable 不解析表达式
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.4.8/angular-sanitize.min.js"></script>
+<script>
+<!-- 引入ngSanitize模块 -->
+var app = angular.module("myApp", ['ngSanitize']);
+
+
+app.controller("con", ["$scope", function($scope) {
+  $scope.name="xugang";
+  $scope.text = "<h1>xugang</h1>";
+
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <p ng-bind="name"></p>
+    <p ng-cloak>{{name}}</p>
+    <p ng-bind-template="{{name}},{{name}}"></p>
+    <p ng-bind="text"></p>
+    <p ng-bind-html="text"></p>
+    <p ng-non-bindable>{{text}}</p>
+  </div>
+</body>
+<script type="text/javascript">
+  //alert(1);
+</script>
+</html>

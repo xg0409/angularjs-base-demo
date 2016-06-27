@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!-- ng-repeat 指令实现循环输出-->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var html =
+  ' <div>' +
+  '   <h2>标题</h2>' +
+  '   <p>段落</p>' +
+  ' </div>';
+
+var app = angular.module("myApp", []);
+// app.controller("con", function($scope) {
+//   $scope.desc = html;
+// });
+
+app.controller("con",["$scope","$sce",function($scope,$sce){
+  $scope.desc = $sce.trustAsHtml(html);
+}]);
+
+</script>
+
+<body>
+  <div ng-controller="con">
+    <div ng-bind-html＝"desc"></div>
+  </div>
+</body>
+
+</html>

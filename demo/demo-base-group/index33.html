@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+自定义指令
+  templateurl : 引入模板文件
+  1. 默认共享作用域
+  scope:true 设置独立作用域
+  scope={}  隔离作用域
+  绑定策略
+  @: 字符串匹配
+  ＝：匹配angular $scope下的数据
+  &：绑定函数
+
+  link：dom操作
+    参数：scope：    $scope作用域
+         element    template Dom区域，jquery对象
+         attr       template Dom中的属性数据
+         reController  依赖元素scope
+
+  transclude 嵌套自定义指令时使用
+  require : 设置依赖元素或依赖属性
+    require="ele" 表示依赖的ele为当前元素内部属性
+    require="^ele"  表示依赖的ele为当前元素的父元素
+    require="?ele"/"?^ele"  容错处理 如果依赖的ele不存在，不会报错
+
+ -->
+<head>
+  <meta charset="UTF-8">
+  <title>嵌套自定义指令</title>
+</head>
+<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+<script src="js/angular.min.js"></script>
+
+<script>
+var app = angular.module("myApp", []);
+
+app.directive('hello', function() {
+  return {
+    restrict: 'E',
+    //scope:true,
+    replace: true,
+    transclude: true,
+    template: '<div>hello angular<div ng-transclude></div></div>'
+  }
+});
+
+app.directive('hi', function() {
+  return {
+    restrict: 'E',
+    //scope:true,
+    replace: true,
+    template: '<span>hi angular</span>'
+  }
+});
+
+
+app.directive('hello2', function() {
+  return {
+    restrict: 'E',
+    //scope:true,
+    replace: true,
+    transclude: true,
+    controller: ["$scope", function($scope) {
+      this.name = "xugang"; // 此处数据想要被依赖元素访问，必须使用this
+    }],
+    template: '<div>hello angular2 <div ng-transclude></div></div>'
+  }
+});
+
+app.directive('hi2', function() {
+  return {
+    restrict: 'E',
+    //scope:true,
+    replace: true,
+    require: "?^hello2", // 使用^表示依赖父元素为hello2，去除^表示hello2为当前元素内部属性
+    template: '<span>hi angular2</span>',
+    link: function(scope, element, attr, reController) {
+      // 访问依赖的元素数据
+      console.log(reController)
+    }
+  }
+});
+
+
+app.directive('hello3', function() {
+  return {
+    restrict: 'A',
+    //scope:true,
+    replace: true,
+    //transclude:true,
+    controller: ["$scope", function($scope) {
+      this.name = "xugang3"; // 此处数据想要被依赖元素访问，必须使用this
+    }],
+    //template: '<div>hello angular2 <div ng-transclude></div></div>'
+  }
+});
+
+app.directive('hi3', function() {
+  return {
+    restrict: 'E',
+    //scope:true,
+    replace: true,
+    require: "?hello3", // 使用^表示依赖父元素为hello2，去除^表示hello2为当前元素内部属性
+    template: '<span>hi angular3</span>',
+    link: function(scope, element, attr, reController) {
+      // 访问依赖的元素数据
+      console.log(reController)
+    }
+  }
+});
+
+
+app.controller("con", ["$scope", function($scope) {
+
+}]);
+</script>
+
+<body>
+  <div class="containter" ng-controller="con">
+    <hello>
+      <hi></hi>
+    </hello>
+
+    <hello2>
+      <hi2></hi2>
+    </hello2>
+
+    <hi3 hello3></hi3>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- angular.bootstrap() 动态初始化angular数据  -->
+
+var app = angular.module('myApp', []);
+app.controller('Aaa', function($scope, $timeout) {
+  $scope.name = "hahhahahha";
+});
+
+
+app.controller('Bbb', function($scope, $timeout) {
+  $scope.name = "hahhahahha";
+});
+
+
+document.onclick = function(){
+  angular.bootstrap(document,["myApp"]);
+}
+
+
+</script>
+
+<body>
+
+  <div ng-controller="Aaa">
+    <input type="text" ng-model="name"/>
+    <p>{{name}}</p>
+  </div>
+
+  <div ng-controller="Bbb">
+    <input type="text" ng-model="name"/>
+    <p>{{name}}</p>
+  </div>
+</body>
+
+</html>

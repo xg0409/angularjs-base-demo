@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+  input 指令
+ng-disabled
+ng-readonly
+ng-checked
+ng-value
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+
+app.controller("con", ["$scope", "$filter", "$interval", function($scope, $filter, $interval) {
+
+  $scope.isDisabled = true;
+
+  var times = 5;
+  $scope.value = times + "s后可点击";
+  var t = $interval(function() {
+
+    if (times == 0) {
+      $interval.cancel(t);
+      $scope.value = "可以点击了";
+      $scope.isDisabled = false;
+    }else{
+      $scope.value = times-- + "s后可点击";
+    }
+
+  }, 1000);
+
+
+
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <input type="button"  value="{{value}}" ng-disabled="isDisabled" />
+    <input type="text" ng-value="value"   />
+    <input type="checkbox" ng-checked = "isDisabled"/>
+
+  </div>
+</body>
+<script type="text/javascript">
+  <!-- 使用ng-value 不会出现{{value}}情况 -->
+  alert(1)
+</script>
+</html>

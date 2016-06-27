@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+自定义指令
+directive
+  restrict = C 表示class属性指令
+  restrict = E 表示标签
+  restrict = A 表示属性指令  (A/E/C可组合使用)
+  restrict = M 表示注释标签指令
+  标签和属性名称必须是小写
+
+  replace = true   属性指令替换当前宿主标签
+  template: 模板数据
+  templateurl : 引入模板文件
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>自定义指令</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+// 自定义标签指令 <hello></hello>
+app.directive('hello', function() {
+  return {
+    restrict: 'E',
+    template: '<div>自定义标签指令</div>'
+  }
+});
+
+
+app.directive('hello2', function() {
+  return {
+    restrict: 'AEC',
+    template: '<div>自定义属性指令2</div>'
+  }
+});
+
+app.directive('hello3', function() {
+  return {
+    restrict: 'AEC',
+    replace: true,
+    template: '<div>自定义属性指令（replace = true   属性指令替换当前宿主标签）</div>'
+  }
+});
+
+// 注释标签指令 必须添加replace属性
+app.directive('hello4', function() {
+  return {
+    restrict: 'M',
+    replace: true,
+    template: '<div>自定义注释指令（必须添加replace属性）</div>'
+  }
+});
+
+app.directive('hello5', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'temp.html'
+  }
+});
+
+app.controller("con", ["$scope", function($scope) {
+
+
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <hello></hello>
+    <p hello2></p>
+    <hello2></hello2>
+    <p class="hello2"></p>
+    <p class="hello3"></p>
+    <!-- 自定义注释指令 -->
+    <!--  directive:hello4  -->
+    <hello5></hello5>
+  </div>
+</body>
+
+</html>

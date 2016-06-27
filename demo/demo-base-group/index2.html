@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- $timeout的使用 -->
+angular.module('myApp', []).controller('Bbb', function($scope, $timeout) {
+  $scope.name = "hahhahahha";
+
+  // 不会及时刷新dom节点数据
+  // setTimeout(function() {
+  //   $scope.name = "hi"
+  // }, 2000);
+
+  $timeout(function() {
+    $scope.name = "hi"
+  }, 2000);
+});
+</script>
+
+<body>
+  <div ng-app="myApp" ng-controller="Bbb">
+    <p>{{name}}</p>
+  </div>
+</body>
+
+</html>

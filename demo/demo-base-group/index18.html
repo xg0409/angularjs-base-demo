@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!-- $filter()的使用／组合过滤器／自定义过滤器 -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+// 自定义过滤器
+app.filter("firstUpp", function() {
+  return function(str) {
+    console.log(str);
+    return str.charAt(0).toUpperCase() + str.substring(1);
+  }
+});
+
+
+app.controller("con", ["$scope", "$filter", function($scope, $filter) {
+
+
+
+
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <input type="checkbox" ng-model="aaa"/>
+    <select>
+      <option>1111</option>p
+      <option ng-selected="aaa">2222</option>
+    </select>
+    <br/>
+    <input type="text" ng-change="bbb='hello'" ng-model="bbb"/> {{bbb}}
+    <br/><br/>
+    复制：<input type="text" ng-copy="ccc=true" value="nihaoa" /> {{ccc}}
+    <br/><br/>
+    剪切：<input type="text" ng-cut="ddd=true" value="nihaoa" /> {{ddd}}
+    <br/><br/>
+    粘贴：<input type="text" ng-paste="eee=true" value="nihaoa" /> {{eee}}
+  </div>
+</body>
+
+</html>

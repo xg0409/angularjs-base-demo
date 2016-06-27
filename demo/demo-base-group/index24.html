@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+ 有问题
+ng-controller  使用面向对象的方式
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+app.controller("con", ["$scope", Fun]);
+
+function Fun($scope){
+
+}
+
+Fun.prototype.num = "1213";
+Fun.prototype.text = "hello";
+Fun.prototype.show = function(){
+  return "angularJs";
+}
+
+
+</script>
+
+<body>
+  <div ng-controller="Fun as fun">
+    <p ng-bind="fun.num"></p>
+
+  </div>
+</body>
+<script type="text/javascript">
+//alert(1);
+</script>
+
+</html>

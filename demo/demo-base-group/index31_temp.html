@@ -1,0 +1,10 @@
+
+
+<div id="{{tabId}}">
+  <div class="tab-trigger">
+    <input type="button" ng-repeat="data in tabData" value="{{data.title}}" tab="#tab_{{$index}}"/>
+  </div>
+  <div class="tab-item">
+  	<div ng-class="$first?{tab:true,active:true}:{tab:true}" id="tab_{{$index}}" ng-repeat="data in tabData" ng-bind="data.content"></div>
+  </div>
+</div>

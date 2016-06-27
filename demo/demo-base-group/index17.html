@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!-- $filter()的使用／组合过滤器／自定义过滤器 -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+// 自定义过滤器
+app.filter("firstUpp", function() {
+  return function(str) {
+    console.log(str);
+    return str.charAt(0).toUpperCase() + str.substring(1);
+  }
+});
+
+
+app.controller("con", ["$scope", "$filter", function($scope, $filter) {
+
+  $scope.array = [{
+    "name": "xu1gang6",
+    "age": 42
+  }, {
+    "name": "xu2gang2",
+    "age": 72
+  }, {
+    "name": "xu3gang9",
+    "age": 22
+  }];
+
+  var copyArray = angular.copy($scope.array);
+
+  $scope.order = function(value) {
+    arguments.callee["order" + value] = !arguments.callee["order" + value];
+    $scope.array = $filter("orderBy")($scope.array, value, arguments.callee["order" + value]);
+  }
+
+  $scope.$watch("search_value", function() {
+    if ($scope.search_value != undefined) {
+      $scope.array = $filter("filter")(copyArray, $scope.search_value);
+    }
+  });
+
+
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <input type="text" ng-model="search_value" />
+    <table border="1">
+      <tr>
+        <td ng-click="order('name')">姓名</td>
+        <td ng-click="order('age')">年龄</td>
+      </tr>
+      <tr ng-repeat="arr in array">
+        <td>{{arr.name}}</td>
+        <td>{{arr.age}}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+自定义指令
+directive
+  restrict = C 表示class属性指令
+  restrict = E 表示标签
+  restrict = A 表示属性指令  (A/E/C可组合使用)
+  restrict = M 表示注释标签指令
+  标签和属性名称必须是小写
+
+  replace = true   属性指令替换当前宿主标签
+  template: 模板数据
+  templateurl : 引入模板文件
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>自定义指令</title>
+</head>
+<style type="text/css">
+.tab {
+  display: none;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+}
+
+.active {
+  display: block;
+}
+</style>
+<script>
+$(function() {
+  $(".tab-trigger input").click(function() {
+    $($(this).attr("tab")).addClass("active");
+    $($(this).attr("tab")).siblings("div").removeClass("active");
+  });
+});
+</script>
+<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+<script src="js/angular.min.js"></script>
+<script>
+$(function() {
+  $(".tab-trigger input").click(function() {
+    $($(this).attr("tab")).addClass("active");
+    $($(this).attr("tab")).siblings("div").removeClass("active");
+  });
+});
+var app = angular.module("myApp", []);
+
+app.directive('tab', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'temp.html'
+  }
+});
+
+app.controller("con", ["$scope", function($scope) {
+
+
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <tab></tab>
+  </div>
+</body>
+
+</html>

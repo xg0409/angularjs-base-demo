@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!--
+ng-class  ng-class="{yellow:true,red:true}"
+ng-style  ng-style="{background:'red'}"
+ng-href
+ng-src
+ng-attr-(suffix) 通用属性指令ng-attr-title／ng-attr-class
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<style type="text/css">
+
+  .yellow{
+    color:yellow;
+  }
+  .red{
+    color: red;
+  }
+
+</style>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- 引入ngSanitize模块 -->
+var app = angular.module("myApp", []);
+
+
+app.controller("con", ["$scope", function($scope) {
+  $scope.name="xugang";
+  $scope.text = "<h1>xugang</h1>";
+  $scope.style= "{background:'yellow'}";
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <p ng-class="{yellow:true,red:true}" ng-bind="name"></p>
+    <p ng-style="{background:'red'}" ng-bind="name"></p>
+    <p ng-style="{{style}}" ng-bind="name"></p>
+  </div>
+</body>
+<script type="text/javascript">
+  //alert(1);
+</script>
+</html>

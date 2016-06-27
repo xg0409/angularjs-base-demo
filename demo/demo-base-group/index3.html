@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- ng-click$timeout的使用 -->
+angular.module('myApp', []).controller('Bbb', function($scope, $timeout) {
+  $scope.name = "hahhahahha";
+  $scope.changeName = function(){
+    $scope.name="hi";
+  }
+});
+</script>
+
+<body>
+  <!-- <div ng-app="myApp" ng-controller="Bbb" ng-click="name='hi'">
+    <p>{{name}}</p>
+  </div> -->
+
+  <div ng-app="myApp" ng-controller="Bbb" ng-click="changeName()">
+    <p>{{name}}</p>
+  </div>
+</body>
+
+</html>

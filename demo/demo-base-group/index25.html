@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<!--
+angular标签  ng-app内的标签
+标签指令
+select 标签
+  ng-options="color.name for color in colors" ng-model="myColor"
+  下拉框选项的变动通过ng-model="myColor"来传递
+  $scope.colors = [{name: 'red',$$hashKey:1}]，其中$$hashKey会自动解析中option的value属性值
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+
+app.controller("con", ["$scope", function($scope) {
+  $scope.name = "xugang";
+  $scope.colors = [{
+      name: 'red',
+      shade:'shade1',
+      $$hashKey:1
+    }, {
+      name: 'blur',
+      shade:'shade3',
+      $$hashKey:2
+    }, {
+      name: 'yellow',
+      shade:'shade3',
+      $$hashKey:3
+    }];
+
+  $scope.$watch("myColor5",function(newValue,oldValue){
+    console.log(newValue);
+  });
+
+}]);
+</script>
+
+<body>
+  <div ng-app="myApp">
+    <div ng-controller="con">
+      <a href="">ng-app内的a标签</a><br/>
+      <select ng-options="color.name for color in colors" ng-model="myColor"></select>
+      <select ng-options="color.shade as color.name for color in colors" ng-model="myColor2"></select>
+      <!-- color.name group by color.shade / 表示按shade分组列出name -->
+      <select ng-options="color.name group by color.shade for color in colors" ng-model="myColor3"></select>
+      <!--  color.shade as color.name ／ as表示选中option输出对应的color.shade，否则输出数组中的当前对象  -->
+      <select ng-options="color.shade as color.name group by color.shade for color in colors" ng-model="myColor4"></select>
+      <!-- track by color.name ／ 自定义option的value属性值，默认为$$hashKey值， -->
+      <select ng-options="color.name for color in colors track by color.name" ng-model="myColor5"></select>
+    </div>
+  </div>
+  <a href="">普通的a标签</a>
+</body>
+<script type="text/javascript">
+//alert(1);
+</script>
+
+</html>

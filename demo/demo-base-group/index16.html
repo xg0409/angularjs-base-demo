@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!-- $filter()的使用／组合过滤器／自定义过滤器 -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+// 自定义过滤器
+app.filter("firstUpp", function() {
+  return function(str) {
+    console.log(str);
+    return str.charAt(0).toUpperCase() + str.substring(1);
+  }
+});
+
+
+app.controller("con", ["$scope", "$filter", function($scope, $filter) {
+
+  $scope.data = $filter("number")("454545.934");
+  $scope.data2 = $filter("number")("454545.934", 2);
+  $scope.name = "xugang";
+
+  $scope.name2 = $filter("firstUpp")("xugang");
+  $scope.jsonData = {
+    "name": "xugang",
+    "age": 12
+  };
+  $scope.date = $filter("date")(new Date(), "yyyy-MM-dd HH:mm:ss");
+
+}]);
+</script>
+
+<body>
+  <div ng-controller="con">
+    <P>组合过滤器</P>
+    <p>{{name | limitTo:2 | uppercase}}</p>
+    <p>{{name2}}</p>
+    <p>{{data}}</p>
+    <p>{{data2}}</p>
+    <p>{{date}}</p>
+    <p>组合过滤器</p>
+    <p>{{name | firstUpp}}</p>
+  </div>
+</body>
+
+</html>

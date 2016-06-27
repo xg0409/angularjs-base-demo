@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+表单验证
+novalidate form属性去除html5默认验证
+$valid     表单验证成功返回true
+$invalid   表单验证成功返回false
+$pristine  文本框原始值未被修改返回true
+$dirty     文本框值被修改返回true
+$error     验证失败，验证信息
+查找方式    通过name属性
+
+
+ng-minlength
+ng-pattern
+
+验证css样式
+.ng-valid     通过
+.ng-invalid   未通过
+.ng-pristine  是否初始值
+.ng-dirty     是否被修改
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <title>表单验证</title>
+</head>
+<style type="text/css">
+  .ng-invalid{
+    border-color: red;
+  }
+  .ng-valid{
+    border-color: #ccc;
+  }
+</style>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+
+app.controller("con", ["$scope", function($scope) {
+  $scope.name = "xugang";
+
+
+}]);
+</script>
+
+<body>
+  <div ng-app="myApp">
+    <div ng-controller="con">
+      <form novalidate name="myForm">
+        <input type="email" name="myName" ng-model="myName"/>
+        {{myForm.myName.$valid}}
+        {{myForm.myName.$invalid}}
+        {{myForm.myName.$pristine}}
+        {{myForm.myName.$dirty}}
+        {{myForm.myName.$error}}
+        <br/>
+        <input type="email" required name="myName2" ng-model="myName2"/>
+        {{myForm.myName2.$valid}}
+        {{myForm.myName2.$invalid}}
+        {{myForm.myName2.$pristine}}
+        {{myForm.myName2.$dirty}}
+        {{myForm.myName2.$error}}
+        <br/>
+        <input type="text" required ng-maxlength="2" ng-pattern="/^[0-9]{0,}$/" name="myName3" ng-model="myName3"/>
+        {{myForm.myName3.$valid}}
+        {{myForm.myName3.$invalid}}
+        {{myForm.myName3.$pristine}}
+        {{myForm.myName3.$dirty}}
+        {{myForm.myName3.$error}}
+
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

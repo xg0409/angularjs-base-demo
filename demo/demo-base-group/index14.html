@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+
+// controller
+app.controller("con", ["$scope", "MyAppService", function($scope, MyAppService) {
+  $scope.number = 0;
+  // $scope.blur = function(){
+  //   $scope.result = MyAppService.squre($scope.number);
+  // }
+  $scope.$watch("number", function() {
+    $scope.result = MyAppService.squre($scope.number);
+  });
+
+}]);
+
+
+// service
+app.service("MyAppService", function(CalceFactory) {
+  this.squre = function(a) {
+    return CalceFactory.multiply(a, a);
+  }
+});
+
+
+// 工厂方法
+app.factory("CalceFactory", function() {
+  var factory = {};
+  factory.multiply = function(a, b) {
+    return a * b;
+  }
+  return factory;
+});
+
+
+</script>
+
+<body>
+  <div ng-controller="con">
+    <input type="text" ng-model="number" ng-blur="blur()" /> <span>double:{{result}}</span>
+  </div>
+</body>
+
+</html>

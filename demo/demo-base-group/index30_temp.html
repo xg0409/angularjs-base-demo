@@ -1,0 +1,18 @@
+
+
+<div id="{{tabId}}">
+  <div class="tab-trigger">
+    <input type="button" value="1" tab="#tab_1"  ng-click="tabClick({num:'456',num2:'123'})"/>
+    <input type="button" value="2" tab="#tab_2" />
+    <input type="button" value="3" tab="#tab_3" />
+  </div>
+  <div class="tab-item">
+    <div class="tab active" id="tab_1">
+    	tab_1:{{name}}
+    </div>
+    <div class="tab" id="tab_2">
+    	tab_2:{{tabName}}
+    </div>
+    <div class="tab" id="tab_3">tab_3</div>
+  </div>
+</div>

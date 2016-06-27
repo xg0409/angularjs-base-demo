@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<!-- ng-repeat 指令实现循环输出-->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+var app = angular.module("myApp", []);
+app.controller("con", function($scope) {
+  $scope.items = [{
+    id: '001',
+    name: 'xg',
+    age: 20
+  }, {
+    id: '002',
+    name: 'xg2',
+    age: 21
+  }];
+});
+</script>
+
+<body>
+  <div ng-controller="con">
+    <table>
+      <tr ng-repeat="item in items track by item.id">
+        <td>{{$index}}</td>
+        <td ng-if="$first">first</td>
+        <td>{{item.name}}</td>
+        <td>{{item.age}}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>

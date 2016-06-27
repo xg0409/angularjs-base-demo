@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- $scope.run() 初始化全局数据,只能作用于全局 -->
+var app = angular.module("myApp", []);
+app.run(["$rootScope", function($rootScope) {
+  $rootScope.name="version:1.0.1";
+}]);
+</script>
+
+<body>
+  <div ng-app="myApp">
+    <p>{{name}}</p>
+  </div>
+</body>
+
+</html>

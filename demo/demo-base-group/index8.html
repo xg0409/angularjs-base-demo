@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<script src="js/angular.min.js"></script>
+<script>
+<!-- $scope.$watch() 监听模型中变量的变化 -->
+angular.module('myApp', []).controller('Bbb', function($scope, $timeout) {
+  $scope.name = "hahhahahha";
+
+  setTimeout(function() {
+    $scope.$apply(function(){
+      $scope.name = "hi2"
+    });
+  }, 2000);
+
+
+  $scope.$watch("name",function(newValue,oldValue){
+    console.log("newValue:"+newValue);
+    console.log("oldValue:"+oldValue);
+  });
+
+});
+</script>
+
+<body>
+  <div ng-app="myApp" ng-controller="Bbb">
+    <p>{{name}}</p>
+  </div>
+</body>
+
+</html>
