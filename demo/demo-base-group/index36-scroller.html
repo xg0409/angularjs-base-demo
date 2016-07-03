@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="Demo">
+<html ng-app="scroller-demo">
 	<!--
  -->
 
@@ -17,10 +17,40 @@
 	<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
 	<script src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/angular-ui-router.js"></script>
-	<script type="text/javascript" src="js/scroller/demo.js" ></script>
+	<!--<script type="text/javascript" src="js/scroller/demo.js" ></script>-->
+	
+	<script>
+
+			window.app = angular.module('scroller-demo', ['ui.router']);
+			app.config(["$stateProvider", "$urlRouterProvider", routeConfig])
+				.controller("testCtrl", angular.noop);
+
+			function routeConfig($stateProvider, $urlRouterProvider) {
+				$urlRouterProvider.otherwise("/app/page1");
+				$stateProvider
+					.state("app", {
+						url: "/app",
+						templateUrl: "'layout.html'",
+						controller: function($scope) {
+							$scope.name = "XG";
+						}
+					})
+					.state("app.page1", {
+						url: "/page1",
+						templateUrl: "'page1.html'"
+					})
+					.state("app.page2", {
+						url: "/page2",
+						templateUrl: "'page2.html'",
+						controller: function($scope) {
+							$scope.name = "XG2";
+						}
+					});
+			};
+
+	</script>
 	<script type="text/javascript" src="js/scroller/iscroll-lite.js"></script>
 	<script type="text/javascript" src="js/scroller/angular-iscroll.js"></script>
-	
 	<style type="text/css">
 		.ui-btn {
 			padding: 10px;

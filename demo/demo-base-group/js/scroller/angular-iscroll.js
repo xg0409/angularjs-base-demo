@@ -295,8 +295,8 @@
       }
     }
   };
-
-  return app
+debugger;
+  return window.app
     .constant('iScrollSignals', signals)
     .provider('iScrollService', iScrollServiceProvider)
     .directive('iscroll', ["$rootScope", "$timeout", "$interval", "$log", "iScrollSignals", "iScrollService", iscroll]);
